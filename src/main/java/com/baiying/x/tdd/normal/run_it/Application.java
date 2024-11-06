@@ -11,7 +11,7 @@ import org.glassfish.jersey.internal.inject.AbstractBinder;
 
 public class Application extends ResourceConfig {
     public Application() {
-        packages("com.baiying.x.tdd.normal.http.resources");
+        packages("com.baiying.x.tdd.normal.run_it.resources");
         // 注册 Jackson 提供者
         register(JacksonFeature.class);
 

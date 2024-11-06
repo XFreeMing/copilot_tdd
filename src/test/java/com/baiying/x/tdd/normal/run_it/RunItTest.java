@@ -1,4 +1,4 @@
-package com.baiying.x.tdd.normal;
+package com.baiying.x.tdd.normal.run_it;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

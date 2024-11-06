@@ -11,7 +11,8 @@
 的确，从直觉上来看，测试驱动开发相当令人困惑：它将我们通常认为的辅助性工作——测试，作为程序员编码的主要驱动力；它主张通过构造一系列自动化测试（由程序员编写），为编写生产代码（Production Code）做指引；
 它甚至建议，如果不存在失败的测试，就不要编写生产代码。看起来，似乎测试驱动开发有些过分强调测试对于程序员的重要性了。
 
-那么我们就需要仔细思考，“测试”在所谓的“正常软件开发模式”中，到底发挥着怎样的作用。当明晰了测试驱动开发的这个核心逻辑之后，我们才能讨论是不是过分强调了。
+那么我们就需要仔细思考，“测试”在所谓的“正常软件开发模式”中，到底发挥着怎样的作用。
+
 
 
 ## 隐式程序员测试（Implicit Developer Testing）
@@ -111,9 +112,9 @@ TDD的创始人：Kent Beck 在他的传世大作 Tese-Driven Development: By Ex
 ```shell
 -l -p 8080 -d /usr/logs
 ```
-> - “l”（日志）没有相关的值，它是一个布尔标志，如果存在则为 true，不存在则为 false。
-> - “p”（端口）有一个整数值，
-> - “d”（目录）有一个字符串值。标志后面如果存在多个值，则该标志表示一个列表：
+> - "l"（日志）没有相关的值，它是一个布尔标志，如果存在则为 true，不存在则为 false。
+> - "p"（端口）有一个整数值，
+> - "d"（目录）有一个字符串值。标志后面如果存在多个值，则该标志表示一个列表：
 > 
 
 
@@ -121,19 +122,26 @@ TDD的创始人：Kent Beck 在他的传世大作 Tese-Driven Development: By Ex
 
 
 
+## 任务分解
+```java
 
+// -l -p 8080 -d /usr/logs
+    // Single Options:
+        // - Bool -l
+        // - Intger -p 8080
+        // - String -d /usr/logs
+        // muiti options: -l -p 8080 -d /usr/logs
+    // sed path:
+        // - Bool -l t / -l t f
+        // - Intger -p/ -p 8080 8081
+        // - String -d/ -d /usr/logs /usr/logs
+    // default value
+        // - Bool :false
+        // - Intger: 0
+        // - String: ""
+```
 
-
-
-
-
-
-
-
-
-
-
-
-
+## 参考资料
 
 参考课程：https://time.geekbang.org/column/intro/100109401?tab=catalog
+项目源码：https://github.com/XFreeMing/copilot_tdd
