@@ -14,4 +14,5 @@ public class DebugTest extends JerseyTest {
     @Test
     public void should_create_stundet_via_api() {
         // Student student = new Student(4, "4", "
+    }
 }

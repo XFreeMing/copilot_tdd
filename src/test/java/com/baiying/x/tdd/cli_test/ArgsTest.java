@@ -1,4 +1,4 @@
-package com.baiying.x.tdd;
+package com.baiying.x.tdd.cli_test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
