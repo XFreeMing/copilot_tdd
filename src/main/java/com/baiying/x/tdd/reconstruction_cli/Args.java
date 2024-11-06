@@ -1,9 +1,10 @@
-package com.baiying.x.tdd.cli_demo;
+package com.baiying.x.tdd.reconstruction_cli;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Parameter;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 public class Args {
 
@@ -23,20 +24,13 @@ public class Args {
     }
 
     private static Object parseOption(List<String> arguments, Parameter parmeters) {
-        Object value = null;
         Option option = parmeters.getAnnotation(Option.class);
-
-        if (parmeters.getType() == boolean.class) {
-            value = arguments.contains("-" + option.value());
-        }
-        if (parmeters.getType() == int.class) {
-            int index = arguments.indexOf("-" + option.value());
-            value = Integer.parseInt(arguments.get(index + 1));
-        }
-        if (parmeters.getType() == String.class) {
-            value = arguments.get(arguments.indexOf("-" + option.value()) + 1);
-        }
-        return value;
+        Class<?> type = parmeters.getType();
+        return PARSERS.get(type).parse(arguments, option);
     }
 
+    private static Map<Class<?>, OptionParser> PARSERS = Map.of(
+            boolean.class, new BooleanPatser(),
+            int.class, new SingleValuedOptionParser<>(Integer::parseInt),
+            String.class, new SingleValuedOptionParser<>(String::toString));
 }

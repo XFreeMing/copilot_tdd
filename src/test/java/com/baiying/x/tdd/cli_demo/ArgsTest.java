@@ -1,12 +1,9 @@
-package com.baiying.x.tdd.cli_test;
+package com.baiying.x.tdd.cli_demo;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-
-import com.baiying.x.tdd.cli_demo.Args;
-import com.baiying.x.tdd.cli_demo.Option;
 
 public class ArgsTest {
     // -l -p 8080 -d /usr/logs

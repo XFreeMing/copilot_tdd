@@ -1,4 +1,4 @@
-package com.baiying.x.tdd.cli_demo;
+package com.baiying.x.tdd.reconstruction_cli;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
