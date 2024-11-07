@@ -80,7 +80,7 @@ public class StudentRepositoryTest {
 
     @Test
     public void testFindByIdNotFound() {
-        Optional<Student> result = repository.findById(1L);
+        Optional<Student> result = repository.findById(999L);
 
         assertFalse(result.isPresent());
     }
