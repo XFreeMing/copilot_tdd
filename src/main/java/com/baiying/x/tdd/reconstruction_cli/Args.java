@@ -15,7 +15,6 @@ public class Args {
 
             Object[] values = Arrays.stream(constructor.getParameters()).map(it -> parseOption(arguments, it))
                     .toArray();
-
             return (T) constructor.newInstance(values);
         } catch (Exception e) {
             e.printStackTrace();

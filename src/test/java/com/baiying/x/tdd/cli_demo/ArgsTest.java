@@ -2,7 +2,6 @@ package com.baiying.x.tdd.cli_demo;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 public class ArgsTest {
@@ -10,7 +9,7 @@ public class ArgsTest {
     // Single Options:
     // - Bool -l
     @Test
-    public void should_parse_bool_to_true_if_flag_present() {
+    public void should_parse_bool() {
         BooleanOption options = Args.parse(BooleanOption.class, "-l");
         assertTrue(options.logging());
     }
@@ -55,6 +54,7 @@ public class ArgsTest {
 
     static record Multioptions(@Option("l") boolean logging, @Option("p") int port, @Option("d") String directory) {
     }
+
     // sed path:
     // - Bool -l t / -l t f
     // - Intger -p/ -p 8080 8081
@@ -64,15 +64,4 @@ public class ArgsTest {
     // - Intger: 0
     // - String: ""
 
-    // -g this is a list -d 1 2 -3 5
-    @Test
-    @Disabled
-    public void should_example_2() {
-        ListOptions options = Args.parse(ListOptions.class, "-g", "this", "is", "a", "list", "-d", "1", "2", "-3", "5");
-        assertEquals(new String[] { "this", "is", "a", "list" }, options.group());
-        assertEquals(new int[] { 1, 2, -3, 5 }, options.decimals());
-    }
-
-    static record ListOptions(@Option("g") String[] group, @Option("d") int[] decimals) {
-    }
 }

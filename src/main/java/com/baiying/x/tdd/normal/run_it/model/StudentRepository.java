@@ -22,7 +22,8 @@ public class StudentRepository {
         return students.stream().filter(s -> s.getId().equals(id)).findFirst();
     }
 
-    public void save(Student student) {
+    public Student save(Student student) {
         students.add(student);
+        return student;
     }
 }

@@ -12,13 +12,13 @@ public class TestApplication {
 
         EntityManager manager = factory.createEntityManager();
 
-        manager.getTransaction().begin(); // 开启事务
+        manager.getTransaction().begin();
 
         StudentRepository repository = new StudentRepository(manager);
 
         Student zs = repository.save(new Student("张三", "zs@lenovo.com"));
 
-        manager.getTransaction().commit(); // 提交事务
+        manager.getTransaction().commit();
 
         System.out.println("保存成功, id: " + zs.getId());
 
