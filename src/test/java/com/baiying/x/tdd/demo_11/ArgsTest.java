@@ -6,29 +6,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class ArgsTest {
 
-    /**
-     * 
-     * 大致构思软件被使用的方式，把握对外接口的方向；
-     * static record Options(@Option("l")boolean loggin, @Option("p")int
-     * port, @Option("d")String directory) {}
-     * Options options =
-     * Args.parse(Options.class,"-l","-p","8080","-d","/usr/logs");
-     * options.logging()；
-     * options.port();
-     */
-
-    /**
-     * 大致构思功能的实现方式，划分所需的组件（Component）以及组件间的关系（所谓的架构）。
-     * 
-     * 首先可以先看下 输入 -l -p 8080 -d /usr/logs
-     * 数组分割 [-l] [-p ,8080] [-d, /usr/logs]
-     * 对数组进行分段处理 可以利用 index 标志位 找到每一个位置 然后往后去读
-     * Map 模式
-     * {-l:[],-p:[8080],-d:[/usr/logs]}
-     * 从简单的角度出发 本次采用 index 模式 这就是 我们选择的实现策略
-     */
-    // example1: -l -p 8080 -d /usr/logs
-
     // -l -p 8080 -d /usr/logs
     // Single Options:
     // TODO: - Bool -l
@@ -78,20 +55,28 @@ public class ArgsTest {
 
     static record MuitiOptions(@Option("l") boolean loggin, @Option("p") int port, @Option("d") String directory) {
     }
-    // example2: -g this is a list -d 1 2 -3 5
+    // sed path:
+    // TODO:- Bool -l t / -l t f
+    // TODO:- Intger -p/ -p 8080 8081
+    // TODO:- String -d/ -d /usr/logs /usr/logs
+    // default value
+    // TODO:- Bool :false
+    // TODO:- Intger: 0
+    // TODO:- String: ""
 
     // @Test
-    // @Disabled
-    // public void should_example_2() {
-    // ListOption options = Args.parse(ListOption.class, "-g", "this", "is", "a",
-    // "list", "-d", "1", "2", "-3", "5");
-    // assertArrayEquals(new String[] { "this", "is", "a", "list" },
-    // options.group());
-    // assertArrayEquals(new int[] { 1, 2, -3, 5 }, options.decimals());
+    // public void should_example_1() {
+    // MuitiOptions options = Args.parse("-l -p 8080 -d /usr/logs",
+    // MuitiOptions.class);
+    // assertTrue(options.loggin());
+    // assertEquals(8080, options.port());
+    // assertEquals("/usr/logs", options.directory());
     // };
 
-    // static record ListOption(@Option("g") String[] group, @Option("d") int[]
-    // decimals) {
+    // static record MuitiOptions(@Option("l") boolean loggin, @Option("p") int
+    // port, @Option("d") String directory) {
     // }
+
+    // example2: -g this is a list -d 1 2 -3 5
 
 }

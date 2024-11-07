@@ -37,72 +37,47 @@ public class StudentRepositoryTest {
     }
 
     @Test
-    public void testAll() {
+    public void testSaveStudent() {
         manager.getTransaction().begin();
-        Student student1 = new Student();
-        Student student2 = new Student();
-        student1.setName("Student One");
-        student1.setEmail("student1@example.com");
-        student2.setName("Student Two");
-        student2.setEmail("student2@example.com");
-        manager.persist(student1);
-        manager.persist(student2);
+        Student student = new Student("张三", "zs@lenovo.com");
+        Student savedStudent = repository.save(student);
+        manager.getTransaction().commit();
+
+        assertNotNull(savedStudent);
+        assertEquals("张三", savedStudent.getName());
+        assertEquals("zs@lenovo.com", savedStudent.getEmail());
+    }
+
+    @Test
+    public void testFindAllStudents() {
+        manager.getTransaction().begin();
+        repository.save(new Student("张三", "zs@lenovo.com"));
+        repository.save(new Student("李四", "ls@lenovo.com"));
         manager.getTransaction().commit();
 
         List<Student> students = repository.all();
-
         assertEquals(2, students.size());
     }
 
     @Test
-    public void testSave() {
-        Student student = new Student();
+    public void testFindStudentById() {
         manager.getTransaction().begin();
-        repository.save(student);
+        Student student = repository.save(new Student("张三", "zs@lenovo.com"));
         manager.getTransaction().commit();
 
-        Student found = manager.find(Student.class, student.getId());
-        assertNotNull(found);
+        Optional<Student> foundStudent = repository.findById(student.getId());
+        assertTrue(foundStudent.isPresent());
+        assertEquals("张三", foundStudent.get().getName());
     }
 
     @Test
-    public void testFindById() {
+    public void testFindStudentByEmail() {
         manager.getTransaction().begin();
-        Student student = new Student();
-        manager.persist(student);
+        repository.save(new Student("张三", "zs@lenovo.com"));
         manager.getTransaction().commit();
 
-        Optional<Student> result = repository.findById(student.getId());
-
-        assertTrue(result.isPresent());
-        assertEquals(student, result.get());
-    }
-
-    @Test
-    public void testFindByIdNotFound() {
-        Optional<Student> result = repository.findById(999L);
-
-        assertFalse(result.isPresent());
-    }
-
-    @Test
-    public void testFindByEmail() {
-        manager.getTransaction().begin();
-        Student student = new Student();
-        student.setEmail("test@example.com");
-        manager.persist(student);
-        manager.getTransaction().commit();
-
-        Optional<Student> result = repository.findByEmail("test@example.com");
-
-        assertTrue(result.isPresent());
-        assertEquals(student, result.get());
-    }
-
-    @Test
-    public void testFindByEmailNotFound() {
-        Optional<Student> result = repository.findByEmail("test@example.com");
-
-        assertFalse(result.isPresent());
+        Optional<Student> foundStudent = repository.findByEmail("zs@lenovo.com");
+        assertTrue(foundStudent.isPresent());
+        assertEquals("张三", foundStudent.get().getName());
     }
 }

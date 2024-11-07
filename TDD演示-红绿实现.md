@@ -235,8 +235,7 @@ public static <T> T parse(Class<T> clazz, String... args) {
             Constructor<?> constructor = clazz.getDeclaredConstructors()[0];
             // 我们知道他会有一组参数
             Parameter parameter = constructor.getParameters()[0];
-           
-
+        
             List<String> arguments = Arrays.asList(args);
             // 首先 我们要显示的把value 体现出来 因为 value 不一定是 Boolean类型的 所以我们用 Object
             Object value = null;
